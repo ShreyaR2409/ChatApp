@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "chatAppBackend.Api.Controllers.UserController",
+    "Method": "CreateUser",
+    "RelativePath": "api/User/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "Core.App.User.Command.CreateUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "chatAppBackend.Api.Controllers.UserController",
+    "Method": "LoginUser",
+    "RelativePath": "api/User/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "Core.App.User.Command.LoginUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
