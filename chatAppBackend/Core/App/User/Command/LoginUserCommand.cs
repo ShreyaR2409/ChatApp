@@ -4,6 +4,7 @@ using Google.Apis.Auth;
 using Google.Apis.Auth.OAuth2.Responses;
 using Mapster;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,9 +15,9 @@ namespace Core.App.User.Command
 {
     public class LoginUserCommand : IRequest<TokenResponse>
     {
-        public string Email { get; set; }
-        public string Password { get; set; }  
-        public string GoogleIdToken { get; set; }
+        public string? Email { get; set; }
+        public string? Password { get; set; }  
+        public string? GoogleIdToken { get; set; }
     }
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, TokenResponse>
     {
@@ -35,14 +36,27 @@ namespace Core.App.User.Command
             if (!string.IsNullOrWhiteSpace(command.GoogleIdToken))
             {
                 var googleUser = await ValidateGoogleToken(command.GoogleIdToken);
-                var user =  _appDbContext.Set<Users>().Where(x => x.Email == command.Email);
-                var newUser = user.Adapt<Users>();
-                return await GenerateTokens(newUser);
+                var user = _appDbContext.Set<Users>().FirstOrDefault(x => x.Email == googleUser.Email);
+                if (user == null)
+                {
+                    user = new Users
+                    {
+                        Email = googleUser.Email,
+                        Name = googleUser.Name,
+                        ProfilePicture = googleUser.Picture,
+                        PasswordHash = null  // No password needed for Google users
+                    };
+
+                    await _appDbContext.Set<Users>().AddAsync(user);
+                    await _appDbContext.SaveChangesAsync();
+                }
+
+                return await GenerateTokens(user);
             }
-            var loginuser = _appDbContext.Set<Users>().Where(x => x.Email == command.Email);
+            var loginuser = _appDbContext.Set<Users>().FirstOrDefault(x => x.Email == command.Email);
             var newLoginUser = loginuser.Adapt<Users>();
 
-            if (loginuser == null || !_passwordHasher.VerifyPassword(newLoginUser.PasswordHash, command.Password))
+            if (loginuser == null || !_passwordHasher.VerifyPassword(command.Password, newLoginUser.PasswordHash))
             {
                 throw new UnauthorizedAccessException("Invalid credentials.");
             }

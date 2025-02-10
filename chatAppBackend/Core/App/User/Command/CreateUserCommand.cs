@@ -14,8 +14,8 @@ namespace Core.App.User.Command
         public string Email { get; set; }
         public string Name { get; set; }
         public string Password { get; set; }
-        public string ProfilePicture { get; set; }
-        public bool IsGoogleSignIn { get; set; }
+        public string? ProfilePicture { get; set; }
+        //public bool IsGoogleSignIn { get; set; }
     }
 
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, Guid>
@@ -40,11 +40,11 @@ namespace Core.App.User.Command
             {
                 throw new ArgumentException("User Already Exists");
             }
-            string hashedPassword = null;
-            if (!command.IsGoogleSignIn)
-            {
-                hashedPassword = _passwordHasher.HashPassword(command.Password);
-            }
+            string hashedPassword = _passwordHasher.HashPassword(command.Password);
+            //if (!command.IsGoogleSignIn)
+            //{
+            //    hashedPassword = _passwordHasher.HashPassword(command.Password);
+            //}
             var user = new Users
             {
                 Email = command.Email,

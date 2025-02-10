@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250207122737_init")]
+    [Migration("20250210101337_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -40,11 +40,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ProfilePicture")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId");

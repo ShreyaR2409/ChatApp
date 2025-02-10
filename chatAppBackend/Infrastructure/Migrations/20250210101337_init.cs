@@ -18,8 +18,8 @@ namespace Infrastructure.Migrations
                     UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfilePicture = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
