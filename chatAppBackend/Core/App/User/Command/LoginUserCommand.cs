@@ -27,7 +27,7 @@ namespace Core.App.User.Command
         public LoginUserCommandHandler(IJwtService jwtService, IAppDbContext appDbContext, IPasswordHasher passwordHasher)
         {
             _passwordHasher = passwordHasher;
-            _jwtService = jwtService;       
+            _jwtService = jwtService;        
             _appDbContext = appDbContext;
         }
 

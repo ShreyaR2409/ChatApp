@@ -1,19 +1,30 @@
-import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { inject } from '@angular/core';
+import { CanActivateFn, Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class AuthGuard implements CanActivate {
-  constructor(private router: Router) {}
+export const authGuard: CanActivateFn = (route, state) => {
+  const accessToken = sessionStorage.getItem('Token');
+  const router = inject(Router);
 
-  canActivate(): boolean {
-    const token = sessionStorage.getItem('Token');
-    if (token) {
-      return true; 
-    } else {
-      this.router.navigate(['/login']); 
-      return false; 
+  if (accessToken) {
+    try {
+      const decodedToken: any = jwtDecode(accessToken);
+      const currentTime = Math.floor(Date.now() / 1000);
+
+      if (decodedToken.exp > currentTime) {
+        return true; 
+      } else {
+        router.navigate(['/login']);
+        return false;
+      }
+    } catch (error) {
+      console.error('Error decoding token:', error);
+      alert("Invalid Token")
+      router.navigate(['/login']);
+      return false;
     }
+  } else {
+    router.navigate(['/login']);
+    return false;
   }
-}
+};

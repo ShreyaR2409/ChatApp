@@ -1,7 +1,30 @@
-<p>dashboard works!</p>
-<div>
-    <h3>Welcome {{Email}}</h3>
-    <h3>Welcome </h3>
-
+<div class="chat-container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="header">Chats</div>
+    <div class="contact-list">
+      <div class="contact" *ngFor="let user of users">
+        <img [src]="user.image" class="avatar" />
+        <div class="contact-info">
+          <div class="name">{{ user.name }}</div>
+          <div class="last-message">{{ user.lastMessage }}</div>
+        </div>
+      </div>
+    </div>
+    <button (click)="logout()">Sign out</button>
   </div>
-  <button (click)="logout()">Sign out</button>
+
+  <!-- Chat Window -->
+  <div class="chat-window">
+    <div class="chat-header">John Doe</div>
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" class="message" [ngClass]="{'sent': msg.sent, 'received': !msg.sent}">
+        {{ msg.text }}
+      </div>
+    </div>
+    <div class="chat-input">
+      <input type="text" placeholder="Type a message..." />
+      <button>Send</button>
+    </div>
+  </div>
+</div>

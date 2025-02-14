@@ -1,5 +1,85 @@
 [
   {
+    "ContainingType": "chatAppBackend.Api.Controllers.ChatController",
+    "Method": "GetChatMessages",
+    "RelativePath": "api/Chat/{chatId}/messages",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "chatId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "chatAppBackend.Api.Controllers.ChatController",
+    "Method": "AcceptFriendRequest",
+    "RelativePath": "api/Chat/accept-request",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "Core.App.Chat.Command.AcceptFriendRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "chatAppBackend.Api.Controllers.ChatController",
+    "Method": "GetFriendsList",
+    "RelativePath": "api/Chat/Friendslist/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "chatAppBackend.Api.Controllers.ChatController",
+    "Method": "SendMessage",
+    "RelativePath": "api/Chat/send",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "Core.App.Chat.Command.SendMessageCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "chatAppBackend.Api.Controllers.ChatController",
+    "Method": "SendFriendRequest",
+    "RelativePath": "api/Chat/send-request",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "Core.App.Chat.Command.SendFriendRequestCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "chatAppBackend.Api.Controllers.UserController",
     "Method": "CreateUser",
     "RelativePath": "api/User/create",
